@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class enemy : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
+    void OnCollisionEnter2D(Collision2D coll){
+		var player = coll.gameObject.GetComponent<Player> ();
+        if (player != null)
+        {
+            player.Getout();
+        }
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
 }
