@@ -8,44 +8,109 @@ public class Player : MonoBehaviour {
     public float speed = 5;
     public float jumpSpeed = 5;
     public float deadzone=-3;
+    public bool canfly=false;
+
+    public Weapon currentWeapon;
 
     new Rigidbody2D rigidbody;
     GM _GM;
     private Vector3 startingPosition;
 
-    // Use this for initialization
+    private Animator anim;
+    public bool air;
+    private SpriteRenderer sr;
+
     void Start () {
         startingPosition = transform.position;
         rigidbody = GetComponent<Rigidbody2D>();
         _GM = FindObjectOfType<GM>();
-	}
-	
+
+        anim = GetComponent<Animator>();
+        air = true;
+        sr = GetComponent<SpriteRenderer>();
+    }
+    
 	// Update is called once per frame
 	void FixedUpdate ()  {
-        //movement
+        // Apply Movement
         float x = Input.GetAxisRaw("Horizontal");
         Vector2 v = rigidbody.velocity;
         v.x = x * speed;
 
-        if (Input.GetButtonDown("Jump"))
+        if (v.x != 0)
+        {
+            //anim.SetBool("running", true);
+        }
+        else
+        {
+            //anim.SetBool("running", false);
+        }
+
+        if (v.x > 0)
+        {
+            sr.flipX = false;
+        }
+        else if (v.x < 0)
+        {
+            sr.flipX = true;
+        }
+
+        if (Input.GetButtonDown("Jump") && (v.y == 0 || canfly))
         {
             v.y = jumpSpeed;
         }
 
+        if (v.y != 0)
+        {
+            //anim.SetBool("inAir", true);
+        }
+        else
+        {
+            //anim.SetBool("inAir", false);
+        }
+
         rigidbody.velocity = v;
 
+        // Attack with a weapon if you have one
+        if (Input.GetButtonDown("Fire1") && currentWeapon != null)
+        {
+            currentWeapon.Attack();
+        }
+
+
+        // Check for out
         if (transform.position.y < deadzone)
         {
-            
+            Debug.Log("Current Position " + transform.position.y + " is lower than " + deadzone);
             Getout();
         }
-        
-        //rigidbody.AddForce (new Vector2(x * speed, 0));
+
+        //rigidbody.AddForce(new Vector2(x * speed, 0));
     }
+
     public void Getout()
     {
         _GM.Setlives(_GM.GetLives()- 1);
         transform.position = startingPosition;
         Debug.Log("You're out");
+    }
+    public void Powerup()
+    {
+        anim.SetTrigger("powered");
+    }
+    void OnCollisionEnter2D(Collision2D coll)
+    {
+        air = false;
+        var weapon = coll.gameObject.GetComponent<Weapon>();
+        if (weapon != null)
+        {
+            weapon.GetPickedUp(this);
+            currentWeapon = weapon;
+        }
+    }
+
+    void OnCollisionExit2D(Collision2D coll)
+    {
+        air = true;
     }
 }

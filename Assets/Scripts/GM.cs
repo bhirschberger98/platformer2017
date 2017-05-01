@@ -2,12 +2,13 @@
 using UnityEngine.UI;
 
 public class GM : MonoBehaviour {
-    public int _Lives = 3;
+    private int _Lives = 3;
     private int points;
 
     public Text lives_value;
     public Text points_value;
     public GameObject Game_Over;
+
     public void Setlives(int newValue)
     {
         _Lives = newValue;
@@ -27,7 +28,7 @@ public class GM : MonoBehaviour {
     public void SetPoints(int newValue)
     {
         points = newValue;
-        pointsValue.text = points.ToString;
+        points_value.text = points.ToString();
     }
     public int GetPoints()
     {
