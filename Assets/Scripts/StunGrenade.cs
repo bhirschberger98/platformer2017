@@ -5,7 +5,7 @@ using UnityEngine;
 public class StunGrenade : Throwable {
 
     public float blastRadius = 5;
-   
+    private Animator goomba; 
     void OnCollisionEnter2D(Collision2D coll)
     {
         var player = coll.gameObject.GetComponent<Player>();
@@ -15,9 +15,9 @@ public class StunGrenade : Throwable {
         }
     }
 
-
-    public void Explode() { 
+    public void Explode() {
         //  Get a reference to all enemies
+        goomba = GetComponent<Animator>();
         var enemies = FindObjectsOfType<enemy>();
 
         //  Loop through each enemy in the list
@@ -40,5 +40,7 @@ public class StunGrenade : Throwable {
         renderer.color = new Color(1, 1, 1, .4f);
         yield return new WaitForSeconds(5);
         e.enabled = true;
+        renderer.color = new Color(1, 1, 1, 1);
+
     }
 }

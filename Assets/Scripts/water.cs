@@ -22,8 +22,7 @@ public class water : MonoBehaviour {
         player.speed = player.speed - water_drag;
         if (player != null)
         {
-            player.canfly = true;
-            
+            player.canfly = true;          
         }
     }
 

@@ -27,7 +27,7 @@ public class Player : MonoBehaviour {
         _GM = FindObjectOfType<GM>();
 
         anim = GetComponent<Animator>();
-        air = true;
+        air = false;
         sr = GetComponent<SpriteRenderer>();
     }
     
@@ -61,7 +61,7 @@ public class Player : MonoBehaviour {
             v.y = jumpSpeed;
         }
 
-        if (v.y != 0)
+        if ((v.y != 0)&&(air==true))
         {
             anim.SetBool("Air", true);
         }
