@@ -18,6 +18,7 @@ public class Player : MonoBehaviour {
 
     private Animator anim;
     public bool air;
+    public bool inwater=false;
     private SpriteRenderer sr;
 
     void Start () {
@@ -37,13 +38,13 @@ public class Player : MonoBehaviour {
         Vector2 v = rigidbody.velocity;
         v.x = x * speed;
 
-        if (v.x != 0)
+        if ((v.x != 0)&&(air==false))
         {
-            //anim.SetBool("running", true);
+            anim.SetBool("Running", true);
         }
         else
         {
-            //anim.SetBool("running", false);
+            anim.SetBool("Running", false);
         }
 
         if (v.x > 0)
@@ -55,18 +56,27 @@ public class Player : MonoBehaviour {
             sr.flipX = true;
         }
 
-        if (Input.GetButtonDown("Jump") && (v.y == 0 || canfly))
+        if (Input.GetButtonDown("Jump") && (v.y == 0 || canfly==true))
         {
             v.y = jumpSpeed;
         }
 
         if (v.y != 0)
         {
-            //anim.SetBool("inAir", true);
+            anim.SetBool("Air", true);
         }
         else
         {
-            //anim.SetBool("inAir", false);
+            anim.SetBool("Air", false);
+        }
+        if ((inwater==true)&& (v.y != 0))
+        {
+            anim.SetBool("inWater", true);
+            
+        }
+        else
+        {
+            anim.SetBool("inWater", false);
         }
 
         rigidbody.velocity = v;
@@ -91,6 +101,7 @@ public class Player : MonoBehaviour {
     public void Getout()
     {
         _GM.Setlives(_GM.GetLives()- 1);
+        inwater = false;
         transform.position = startingPosition;
         Debug.Log("You're out");
     }

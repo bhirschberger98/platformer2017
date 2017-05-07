@@ -15,7 +15,6 @@ public class bomb : Throwable {
         }
     }
 
-
     public void Explode() { 
         //  Get a reference to all enemies
         var enemies = FindObjectsOfType<enemy>();

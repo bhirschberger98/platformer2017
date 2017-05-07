@@ -9,7 +9,7 @@ public class flyingbooster : MonoBehaviour {
 
     public float lastsforseconds = 10;
 
-    void OnCollisionEnter2D(Collision2D coll)
+    public void OnTriggerEnter2D(Collider2D coll)
     {
         player = coll.gameObject.GetComponent<Player>();
         if (player != null)

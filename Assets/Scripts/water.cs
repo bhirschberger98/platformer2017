@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class water : MonoBehaviour {
-
+    public int water_drag = 2;
 	// Use this for initialization
 	void Start () {
 		
@@ -14,23 +14,28 @@ public class water : MonoBehaviour {
 		
 	}
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    public void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log("Entered into water");
         var player = collision.gameObject.GetComponent<Player>();
+        player.inwater = true;
+        player.speed = player.speed - water_drag;
         if (player != null)
         {
             player.canfly = true;
+            
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    public void OnTriggerExit2D(Collider2D collision)
     {
-        Debug.Log("Exited water");
+        Debug.Log("Exited water");     
         var player = collision.gameObject.GetComponent<Player>();
+        player.inwater = false;
+        player.speed = player.speed + water_drag;
         if (player != null)
         {
-            player.canfly = false;
+            player.canfly = false;            
         }
     }
 }
