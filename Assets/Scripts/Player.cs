@@ -11,6 +11,7 @@ public class Player : MonoBehaviour {
     public bool canfly=false;
 
     public Weapon currentWeapon;
+    private List<Weapon> weapons = new List<Weapon>();
 
     new Rigidbody2D rigidbody;
     GM _GM;
@@ -86,7 +87,11 @@ public class Player : MonoBehaviour {
         {
             currentWeapon.Attack();
         }
-
+        if (Input.GetButtonDown("Fire2"))
+        {
+            int i=(weapons.IndexOf(currentWeapon)+1)%weapons.Count;
+            SetCurrentWeapon(weapons[i]);
+        }
 
         // Check for out
         if (transform.position.y < deadzone)
@@ -109,6 +114,24 @@ public class Player : MonoBehaviour {
     {
         anim.SetTrigger("powered");
     }
+    public void AddWeapon(Weapon W)
+    {
+        weapons.Add(W);
+        SetCurrentWeapon(W);
+    }
+    public void SetCurrentWeapon(Weapon W)
+    {
+        if (currentWeapon != null)
+        {
+            currentWeapon.gameObject.SetActive(false);
+        }
+        currentWeapon = W;
+
+        if (currentWeapon != null)
+        {
+            currentWeapon.gameObject.SetActive(true);
+        }
+    }
     void OnCollisionEnter2D(Collision2D coll)
     {
         air = false;
@@ -116,7 +139,7 @@ public class Player : MonoBehaviour {
         if (weapon != null)
         {
             weapon.GetPickedUp(this);
-            currentWeapon = weapon;
+            
         }
     }
 

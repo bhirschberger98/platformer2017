@@ -31,5 +31,6 @@ public class Weapon : MonoBehaviour
         transform.parent = player.transform;
         transform.localScale = new Vector3(.2f, .2f);
         transform.localPosition = new Vector3(.2f, .2f);
+        player.AddWeapon(this);
     }
 }
