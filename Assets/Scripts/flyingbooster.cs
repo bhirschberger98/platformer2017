@@ -25,7 +25,7 @@ public class flyingbooster : MonoBehaviour {
     }
     private void Update()
     {
-        if (timestarted != 0&&timestarted+ lastsforseconds > Time.time)
+        if (timestarted != 0&&timestarted+ lastsforseconds < Time.time)
         {
             timestarted = 0;
             player.canfly = false;

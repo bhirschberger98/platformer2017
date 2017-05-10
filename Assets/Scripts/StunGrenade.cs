@@ -35,12 +35,12 @@ public class StunGrenade : Throwable {
    IEnumerator stun(enemy e)
     {
         var renderer = e.GetComponent<SpriteRenderer>();
-
+        //goomba.enabled = false;
         e.enabled = false;
         renderer.color = new Color(1, 1, 1, .4f);
         yield return new WaitForSeconds(5);
         e.enabled = true;
         renderer.color = new Color(1, 1, 1, 1);
-
+        //goomba.enabled = true;
     }
 }

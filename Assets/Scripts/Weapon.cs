@@ -5,7 +5,7 @@ public class Weapon : MonoBehaviour
 {
     protected new Rigidbody2D rigidbody2D;
     protected new Collider2D collider2D;
-
+    public float scale = .2f;
     void Start()
     {
         rigidbody2D = GetComponent<Rigidbody2D>();
@@ -29,7 +29,7 @@ public class Weapon : MonoBehaviour
         rigidbody2D.isKinematic = true;
         rigidbody2D.velocity = new Vector2();
         transform.parent = player.transform;
-        transform.localScale = new Vector3(.2f, .2f);
+        transform.localScale = new Vector3(scale, scale);
         transform.localPosition = new Vector3(.2f, .2f);
         player.AddWeapon(this);
     }
