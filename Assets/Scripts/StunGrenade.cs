@@ -5,6 +5,7 @@ using UnityEngine;
 public class StunGrenade : Throwable {
 
     public float blastRadius = 5;
+    public float wait = 5;
     private Animator goomba; 
     void OnCollisionEnter2D(Collision2D coll)
     {
@@ -35,12 +36,12 @@ public class StunGrenade : Throwable {
    IEnumerator stun(enemy e)
     {
         var renderer = e.GetComponent<SpriteRenderer>();
-        //goomba.enabled = false;
+        //goomba.SetBool("stun", true);
         e.enabled = false;
         renderer.color = new Color(1, 1, 1, .4f);
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(wait);
         e.enabled = true;
         renderer.color = new Color(1, 1, 1, 1);
-        //goomba.enabled = true;
+        //goomba.SetBool("stun", false);
     }
 }

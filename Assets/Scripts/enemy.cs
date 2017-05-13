@@ -12,10 +12,10 @@ public class enemy : MonoBehaviour {
     float actualspeed = 9f;
     float posx;
     float posy;
-
     public bool movex;
     public bool movey;
-
+    private Animator goomba;
+    public bool stun;
     private SpriteRenderer sr;
 
     void Start()
