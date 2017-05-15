@@ -15,7 +15,7 @@ public class Player : MonoBehaviour {
 
     new Rigidbody2D rigidbody;
     GM _GM;
-    private Vector3 startingPosition;
+    public Vector3 startingPosition;
 
     private Animator anim;
     public bool air;

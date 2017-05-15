@@ -48,9 +48,7 @@ public class Movable_object : MonoBehaviour {
         {
             if (posy - transform.position.y > distance)
             {
-                actualspeed = speed;
-
-                
+                actualspeed = speed;   
             }
             else if ((posy - transform.position.y < -distance))
             {
